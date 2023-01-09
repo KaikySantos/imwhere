@@ -1,16 +1,38 @@
-import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { Participant } from '../../components/Participant';
 
 import { styles } from './styles';
 
 export default function Home() {
-  const participants = ["Kaiky", "Rodrigo", "Vini", "Diego", "Biro", "Silvio", "Ana", "Beatriz", "Marcos", "Antônio"]
+  const participants = ['Kaiky', 'Rodrigo', 'Vini', 'Diego', 'Biro', 'Silvio', 'Ana', 'Beatriz', 'Marcos', 'Antônio']
 
   function handleParcipantAdd() {
-    console.log("Você clicou no botão de adicionar!")
+    if (participants.includes('Kaiky')) {
+      return Alert.alert(
+        'Participante existe',
+        'Já existe um participante na lista com esse nome'
+      )
+    }
+
+    console.log('Você clicou no botão de adicionar!')
   }
 
   function handleParticipantRemove(name: string) {
+    Alert.alert(
+      'Remover',
+      `Remover o participante ${name}`,
+      [
+        {
+          text: 'Não',
+          style: 'cancel'
+        },
+        {
+          text: 'Sim',
+          onPress: () => Alert.alert('Deletado!')
+        }
+      ]
+    )
+
     console.log(`Você clicou em remover o participante ${name}`)
   }
 
@@ -27,8 +49,8 @@ export default function Home() {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Nome do participante"
-          placeholderTextColor="#6b6b6b"
+          placeholder='Nome do participante'
+          placeholderTextColor='#6b6b6b'
         />
 
         <TouchableOpacity
